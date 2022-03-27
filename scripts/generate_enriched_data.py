@@ -51,4 +51,4 @@ with open('data/enriched/purchase.csv', 'w', newline='', encoding='utf-8') as FI
     CSV = csv.writer(FILE)
 
     for I in range(PURCHASE_COUNT):
-        CSV.writerow([I, FAKER.date_this_year(), round(random.random(), 4), random.randint(0, USER_COUNT), random.randint(0, WINE_COUNT)])
+        CSV.writerow([I, FAKER.date_this_year(), round(random.random(), 4), random.randint(0, USER_COUNT - 1), random.randint(0, WINE_COUNT - 1)])
