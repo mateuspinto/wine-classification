@@ -11,7 +11,7 @@ FAKER = Faker(seed=RANDOM_SEED)
 ########################
 
 RED = pd.read_csv('data/raw/winequality-red.csv', sep=';')
-WHITE = pd.read_csv('data/raw/winequality-red.csv', sep=';')
+WHITE = pd.read_csv('data/raw/winequality-white.csv', sep=';')
 WINE_NAMES = pd.read_csv('data/raw/wine_names.csv')['wine_name'].to_list()
 
 
@@ -32,12 +32,12 @@ WHITE['price'] = WHITE.apply(lambda x: round(x['quality'] * random.uniform(67.5,
 
 WINE_DATA = pd.concat([RED, WHITE])[['name', 'is_red', 'fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar', 'chlorides', 'free_sulfur_dioxide', 'total_sulfur_dioxide', 'density', 'ph', 'sulphates', 'alcohol', 'quality', 'price']].sample(frac=1, random_state=RANDOM_SEED, ignore_index=True)
 WINE_COUNT = len(WINE_DATA)
-WINE_DATA.to_csv('data/enriched/wine.csv', header=None)
+WINE_DATA.to_csv('data/enriched/wines.csv', header=None)
 
 ########################
 
 USER_COUNT = 1000
-with open('data/enriched/user.csv', 'w', newline='', encoding='utf-8') as FILE:
+with open('data/enriched/users.csv', 'w', newline='', encoding='utf-8') as FILE:
     CSV = csv.writer(FILE)
 
     for I in range(USER_COUNT):
@@ -47,7 +47,7 @@ with open('data/enriched/user.csv', 'w', newline='', encoding='utf-8') as FILE:
 ########################
 
 PURCHASE_COUNT = 10000
-with open('data/enriched/purchase.csv', 'w', newline='', encoding='utf-8') as FILE:
+with open('data/enriched/purchases.csv', 'w', newline='', encoding='utf-8') as FILE:
     CSV = csv.writer(FILE)
 
     for I in range(PURCHASE_COUNT):

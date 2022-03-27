@@ -31,7 +31,7 @@ def create_df_schema(DB_NAME: str, DB_USER: str, DB_PASSWORD: str, DB_IP: str, D
 
     DB_METADATA = MetaData(DB_ENGINE)
 
-    TB_WINE = Table('wine', DB_METADATA,
+    TB_WINE = Table('wines', DB_METADATA,
                     Column('id', INT, primary_key=True),
                     Column('name', VARCHAR),
                     Column('is_red', SMALLINT),
@@ -50,7 +50,7 @@ def create_df_schema(DB_NAME: str, DB_USER: str, DB_PASSWORD: str, DB_IP: str, D
                     Column('price', REAL)
                     )
 
-    TB_USER = Table('user', DB_METADATA,
+    TB_USER = Table('users', DB_METADATA,
                     Column('id', INT, primary_key=True),
                     Column('name', VARCHAR),
                     Column('email', VARCHAR),
@@ -58,12 +58,12 @@ def create_df_schema(DB_NAME: str, DB_USER: str, DB_PASSWORD: str, DB_IP: str, D
                     Column('gender', SMALLINT),
                     )
 
-    TB_PURCHASE = Table('purchase', DB_METADATA,
+    TB_PURCHASE = Table('purchases', DB_METADATA,
                         Column('id', INT, primary_key=True),
                         Column('date', DATE),
                         Column('rating', REAL),
-                        Column('user_id', INT, ForeignKey('user.id')),
-                        Column('wine_id', INT, ForeignKey('wine.id'))
+                        Column('user_id', INT, ForeignKey('users.id')),
+                        Column('wine_id', INT, ForeignKey('wines.id'))
                         )
 
     TABLES = [TB_WINE, TB_USER, TB_PURCHASE]
@@ -80,4 +80,4 @@ if __name__ == '__main__':
         CONSTANTS = json.load(CONSTANTS_FILE)
 
         create_df_schema(CONSTANTS['DB_NAME'], CONSTANTS['DB_USER'], CONSTANTS['DB_PASSWORD'], CONSTANTS['DB_IP'], CONSTANTS['DB_PORT'])
-        load_csv_in_database(CONSTANTS['DB_NAME'], CONSTANTS['DB_USER'], CONSTANTS['DB_PASSWORD'], CONSTANTS['DB_IP'], CONSTANTS['DB_PORT'], ['wine', 'user', 'purchase'])
+        load_csv_in_database(CONSTANTS['DB_NAME'], CONSTANTS['DB_USER'], CONSTANTS['DB_PASSWORD'], CONSTANTS['DB_IP'], CONSTANTS['DB_PORT'], ['wines', 'users', 'purchases'])
